@@ -1,4 +1,5 @@
-import bot_ctrl as bc
+
 
 if __name__ == '__main__':
-	bc.bot_run()
+	from handler import bot_run
+	bot_run()

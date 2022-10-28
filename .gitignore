@@ -1,1 +1,5 @@
 /.env
+/.handler-saves/
+/handler/**
+!/handler/*
+
