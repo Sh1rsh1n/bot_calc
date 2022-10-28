@@ -1,10 +1,7 @@
 def get_div(x, y, i):
 	if i == 1:
-		return x / y
-	elif i == 2:
-		return x // y
-	elif i == 3:
-		return x % y
-	else:
-		print("Вы ввели неправильные данные")
-
+		return int(x) / int(y)
+	if i == 2:
+		return int(x) // int(y)
+	if i == 3:
+		return int(x) % int(y)
