@@ -19,14 +19,10 @@ div_rem = types.InlineKeyboardButton(text=f"Остаток", callback_data="div_
 div_int = types.InlineKeyboardButton(text=f"Целочисленное деление", callback_data="div_int")
 
 # кнопки выбора вычислений для комплексных чисел
-sum_c = types.InlineKeyboardButton(text=f"Сложение", callback_data="sum_c")
-sub_c = types.InlineKeyboardButton(text=f"Вычитание", callback_data="sub_c")
-mult_c = types.InlineKeyboardButton(text=f"Умножение", callback_data="mult_c")
-div_c = types.InlineKeyboardButton(text=f"Деление", callback_data="div_c")
-div_reg_c = types.InlineKeyboardButton(text=f"Обычное деление", callback_data="div_reg_c")
-div_rem_c = types.InlineKeyboardButton(text=f"Остаток", callback_data="div_rem_c")
-div_int_c = types.InlineKeyboardButton(text=f"Целочисленное деление", callback_data="div_int_c")
-
+sum_co = types.InlineKeyboardButton(text=f"Сложение", callback_data="sum_co")
+sub_co = types.InlineKeyboardButton(text=f"Вычитание", callback_data="sub_co")
+mult_co = types.InlineKeyboardButton(text=f"Умножение", callback_data="mult_co")
+div_co = types.InlineKeyboardButton(text=f"Деление", callback_data="div_co")
 
 # стартовое меню
 start_menu = types.InlineKeyboardMarkup(row_width=2)
@@ -44,10 +40,6 @@ rat_div_menu.add(back_rat_menu)
 
 # меню вычислений с комплексными чиселами
 comp_menu = types.InlineKeyboardMarkup(row_width=2)
-comp_menu.add(sum_с, sub_с)
-comp_menu.add(mult_с, div_с)
-comp_menu.add(back_start_menu)
-# меню деления
-comp_div_menu = types.InlineKeyboardMarkup(row_width=2)
-comp_div_menu.add(div_reg_с, div_rem_с, div_int_с)
-comp_div_menu.add(back_comp_menu)
+comp_menu.add(sum_co, sub_co)
+comp_menu.add(mult_co, div_co)
+comp_menu.add(back_comp_menu)
