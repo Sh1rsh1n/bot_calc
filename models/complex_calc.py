@@ -1,26 +1,14 @@
-import excep as ex
 
+def cal_compl(real_1, imag_1, real_2, imag_2, action):
+	a = complex(int(real_1), int(imag_1))
+	b = complex(int(real_2), int(imag_2))
 
-def cal_compl(i):
-	in_real_1 = ex.digit_number('Введите действительное число 1 части: ')
-	in_imag_1 = ex.digit_number('Введите мнимое число 1 части: ')
-	a = complex(in_real_1, in_imag_1)
-
-	in_real_2 = ex.digit_number('Введите действительное число 2 части: ')
-	in_imag_2 = ex.digit_number('Введите мнимое число 2 части: ')
-	b = complex(in_real_2, in_imag_2)
-
-	if i == "+":
+	if action == "+":
 		return a + b
-	elif i == "-":
+	elif action == "-":
 		return a - b
-	elif i == "*":
+	elif action == "*":
 		return a * b
-	elif i == "/" and b != 0:
+	elif action == "/" and b != 0:
 		return a / b
-	elif i == "/" and b == 0:
-		print("На ноль делить нельзя")
-		text = "Пользователь ввел: 0. Это некорректный ввод"
-	elif i == "^":
-		return a**b
 

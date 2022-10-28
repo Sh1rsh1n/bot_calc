@@ -1,5 +1,5 @@
-import handler
 
 
 if __name__ == '__main__':
-	handler.bot_run()
+	from handler import bot_run
+	bot_run()

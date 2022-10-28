@@ -3,12 +3,13 @@ import datetime
 import telebot
 from keyboards import kb
 from models import rational_calc as rc
+from models import complex_calc as cc
 
 
 bot = telebot.TeleBot(config.token)
-first_arg = None
-second_arg = None
-result = None
+first_arg = ''
+second_arg = ''
+result = ''
 
 
 # дата, для логирования
@@ -33,7 +34,8 @@ def bot_run():
 def start(message):
 	bot.send_message(message.chat.id, 'Основное меню', reply_markup=kb.start_menu)
 
-
+######################################################################
+######################################################################
 # обработка нажатия кнопки 'рациональные числа'
 @bot.callback_query_handler(func=lambda call: call.data == 'rat')
 def show_rational_menu(call):
@@ -56,8 +58,8 @@ def second_num(message):
 
 
 # обработка нажатия кнопок выбора действий(сложение/вычитание/умножение/деление)
-cmd_list = ['sum', 'sub', 'mult', 'div', 'back_s']
-@bot.callback_query_handler(func=lambda call: call.data in cmd_list)
+rat_list = ['sum', 'sub', 'mult', 'div', 'back_s']
+@bot.callback_query_handler(func=lambda call: call.data in rat_list)
 def rational_calc(call):
 	global result, first_arg, second_arg
 	
@@ -107,9 +109,71 @@ def div_calc(call):
 			bot.send_message(call.message.chat.id, f'Что еще счетаем?', reply_markup=kb.start_menu)
 		if call.data == 'back_r':
 			bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=kb.rat_menu)
-			
+######################################################################
+######################################################################
+
+######################################################################
+######################################################################
+
+############## Комплексные числа ################
+first_real = ''
+first_imag = ''
+second_real = ''
+second_imag = ''
+
+@bot.callback_query_handler(func=lambda call: call.data == 'comp')
+def show_complex_menu(call):
+	bot.send_message(call.message.chat.id, "Вы выбрали комплексные числа")
+	msg = bot.send_message(call.message.chat.id, 'Введите первое действительное число')
+	bot.register_next_step_handler(msg, real_num_first)
 
 
+############## Обработка ввода комплексных чисел ##############
+def real_num_first(message):
+	global first_real
+	first_real = message.text
+	msg = bot.send_message(message.chat.id, 'Введите первое мнимое число')
+	bot.register_next_step_handler(msg, imag_num_first)
+
+def imag_num_first(message):
+	global first_imag
+	first_imag = message.text
+	msg = bot.send_message(message.chat.id, 'Введите второе действительное число')
+	bot.register_next_step_handler(msg, real_num_second)
+
+def real_num_second(message):
+	global second_real
+	second_real = message.text
+	msg = bot.send_message(message.chat.id, 'Введите второе мнимое число')
+	bot.register_next_step_handler(msg, imag_num_second)
+
+def imag_num_second(message):
+	global second_imag
+	second_imag = message.text
+	bot.send_message(message.chat.id, 'Какое действие нужно выполнить?', reply_markup=kb.comp_menu)
+
+######################################################################
+cmd_list_c = ['sum_c', 'sub_c', 'mult_c', 'div_c', 'back_s']
+@bot.callback_query_handler(func=lambda call: call.data in cmd_list_c)
+def complex_calc(call):
+	print('complex calc')
+	global result, first_real, first_imag, second_real, second_imag
+	
+	
+	print((first_real.isdigit and first_imag.isdigit and second_real.isdigit and second_imag.isdigit), first_real,
+	first_imag, second_real, second_imag)
+	
+	
+	if first_real.isdigit and first_imag.isdigit and second_real.isdigit and second_imag.isdigit:
+		if call.data == 'sum_с':
+			result = cc.cal_compl(first_real, first_imag, second_real, second_imag, '+')
+			bot.send_message(call.message.chat.id, f'Результат вычислений = {result}')
+			bot.send_message(call.message.chat.id, f'Что еще счетаем?', reply_markup=kb.start_menu)
+		
+	else:
+		bot.send_message(call.message.chat.id, f'Вводить нужно только цифры. Попробуй еще раз.', reply_markup=kb.start_menu)
+		
+		
 # просто эхо-ответ для всех остальных сообщений
 @bot.message_handler(content_types=['text'])
 def echo(message):
