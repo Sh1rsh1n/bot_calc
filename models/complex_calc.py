@@ -11,4 +11,3 @@ def cal_compl(real_1, imag_1, real_2, imag_2, action):
 		return a * b
 	elif action == "/" and b != 0:
 		return a / b
-
