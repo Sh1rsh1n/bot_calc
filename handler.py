@@ -173,7 +173,7 @@ def complex_calc(call):
 	global result, first_real, first_imag, second_real, second_imag
 	
 	# Проверка корректности ввода значения
-	if not first_real.isdigit or not first_imag.isdigit or not second_real.isdigit or not second_imag.isdigit:
+	if not first_real.isdigit and not first_imag.isdigit and not second_real.isdigit and not second_imag.isdigit:
 		log.callback_logger(call, 'Ошибка ввода значений, некорректный ввод.') # запись в лог ошибки
 		bot.send_message(call.message.chat.id, f'Вводить нужно только цифры. Попробуй еще раз.', reply_markup=kb.start_menu)
 	else:
@@ -209,26 +209,9 @@ def complex_calc(call):
 			second_real = None
 			second_imag = None
 			bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=kb.start_menu)
-	
-		
-			
-				
-					
+######################################################################
 
-	
-	'''global result, first_real, first_imag, second_real, second_imag
-	
-	if first_real.isdigit and first_imag.isdigit and second_real.isdigit and second_imag.isdigit:
-		if call.data == 'sum_с':
-			result = cc.cal_compl(first_real, first_imag, second_real, second_imag, '+')
-			bot.send_message(call.message.chat.id, f'Результат вычислений = {result}')
-			bot.send_message(call.message.chat.id, f'Что еще счетаем?', reply_markup=kb.start_menu)
-		
-	else:
-		bot.send_message(call.message.chat.id, f'Вводить нужно только цифры. Попробуй еще раз.', reply_markup=kb.start_menu)'''
-		
-		
 # просто эхо-ответ для всех остальных сообщений
 @bot.message_handler(content_types=['text'])
 def echo(message):
-	bot.send_message(message.chat.id, message.message_id.text)
+	bot.reply_to(message, text=message.text)
