@@ -3,3 +3,5 @@
 /handler/**
 !/handler/*
 
+/.handler-saves/**
+/log.txt
